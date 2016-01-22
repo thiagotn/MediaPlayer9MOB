@@ -18,11 +18,11 @@ import cc.thiago.mediaplayer9mob.model.Music;
 public class MusicAdapter extends BaseAdapter {
 
     private ArrayList<Music> musics;
-    private LayoutInflater songInf;
+    private LayoutInflater musicInf;
 
-    public MusicAdapter(Context c, ArrayList<Music> theMusics){
-        musics = theMusics;
-        songInf=LayoutInflater.from(c);
+    public MusicAdapter(Context context, ArrayList<Music> musics) {
+        this.musics = musics;
+        this.musicInf = LayoutInflater.from(context);
     }
 
     @Override
@@ -44,20 +44,13 @@ public class MusicAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //map to song layout
-        LinearLayout songLay = (LinearLayout)songInf.inflate
-                (R.layout.song, parent, false);
-        //get title and artist views
-        TextView songView = (TextView)songLay.findViewById(R.id.song_title);
-        TextView artistView = (TextView)songLay.findViewById(R.id.song_artist);
-        //get song using position
+        LinearLayout songLay = (LinearLayout) musicInf.inflate (R.layout.music, parent, false);
+        TextView songView = (TextView)songLay.findViewById(R.id.music_title);
+        TextView artistView = (TextView)songLay.findViewById(R.id.music_artist);
         Music currMusic = musics.get(position);
-        //get title and artist strings
         songView.setText(currMusic.getTitle());
         artistView.setText(currMusic.getArtist());
-        //set position as tag
         songLay.setTag(position);
         return songLay;
     }
-
 }

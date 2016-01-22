@@ -9,10 +9,10 @@ public class Music {
     private String title;
     private String artist;
 
-    public Music(long songID, String songTitle, String songArtist) {
-        id=songID;
-        title=songTitle;
-        artist=songArtist;
+    public Music(long id, String title, String artist) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
     }
 
     public long getId() {

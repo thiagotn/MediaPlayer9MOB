@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         setContentView(R.layout.activity_main);
 
         musicList = new ArrayList<Music>();
-        musicView = (ListView)findViewById(R.id.song_list);
+        musicView = (ListView) findViewById(R.id.music_list);
 
         loadMedia();
         setController();
@@ -106,15 +106,13 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         } else {
             int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
             int idColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID);
-            int albumColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
+            //int albumColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
             int artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
             do {
                 long thisId = cursor.getLong(idColumn);
                 String thisTitle = cursor.getString(titleColumn);
-                String thisAlbum = cursor.getString(albumColumn);
+                //String thisAlbum = cursor.getString(albumColumn);
                 String thisArtist = cursor.getString(artistColumn);
-                Long thisDuration = cursor.getLong(durationColumn);
 
                 Log.i("Musica", thisId + " - " + thisTitle + " - " + thisArtist);
 
@@ -124,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             } while (cursor.moveToNext());
         }
 
-        MusicAdapter songAdt = new MusicAdapter(this, musicList);
-        musicView.setAdapter(songAdt);
+        MusicAdapter musicAdapter = new MusicAdapter(this, musicList);
+        musicView.setAdapter(musicAdapter);
     }
 
     public void songPicked(View view){
@@ -175,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         });
 
         controller.setMediaPlayer(this);
-        controller.setAnchorView(findViewById(R.id.song_list));
+        controller.setAnchorView(findViewById(R.id.music_list));
         controller.setEnabled(true);
     }
 
