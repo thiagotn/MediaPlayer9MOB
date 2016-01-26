@@ -11,7 +11,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <receiver
+            android:name=".broadcast.MusicIntentReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -20,9 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".service.MusicService"
+        <service
+            android:name=".service.MusicService"
             android:exported="false"
-            android:label="MusicService"/>
+            android:label="MusicService" />
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import android.widget.MediaController;
 import java.util.ArrayList;
 
 import cc.thiago.mediaplayer9mob.adapter.MusicAdapter;
+import cc.thiago.mediaplayer9mob.broadcast.MusicIntentReceiver;
 import cc.thiago.mediaplayer9mob.controller.MusicController;
 import cc.thiago.mediaplayer9mob.model.Music;
 import cc.thiago.mediaplayer9mob.service.MusicService;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     @Override
     protected void onStart() {
         super.onStart();
-        if(playIntent==null){
+        if(playIntent == null) {
             playIntent = new Intent(this, MusicService.class);
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);

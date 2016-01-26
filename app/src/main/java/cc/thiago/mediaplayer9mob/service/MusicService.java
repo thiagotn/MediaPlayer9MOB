@@ -5,7 +5,10 @@ import java.util.Random;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -42,6 +45,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private Random random;
 
+    public static final String ACTION_PAUSE = "action.pause";
+    public static final String ACTION_PLAY = "action.play";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,6 +55,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         player = new MediaPlayer();
         initMusicPlayer();
         random = new Random();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_PAUSE);
+        filter.addAction(ACTION_PLAY);
+        registerReceiver(receiver, filter);
     }
 
     public void initMusicPlayer() {
@@ -190,4 +201,23 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             shuffle = true;
         }
     }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            switch (action) {
+                case ACTION_PAUSE:
+                    Log.i("receiver", "Acao recebida. Acao = " + action);
+                    pausePlayer();
+                    break;
+                case ACTION_PLAY:
+                    Log.i("receiver", "Acao recebida. Acao = " + action);
+                    playSong();
+                    break;
+                default:
+                    Log.i("receiver", "Acao recebida mas ignorada. Acao = " + action);
+            }
+        }
+    };
 }
